@@ -1,0 +1,69 @@
+#app{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 90vh;
+    padding-top: 40px;
+    position: relative;
+
+}
+
+.image-list{
+    width: 20%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    background-color: rgb(80, 141, 141);
+}
+
+.image-wrapper{
+    width: 80%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgb(233, 236, 13);
+}
+.image{
+    width: 100%;
+    background-color: rgb(56, 94, 175);
+}
+.menu{
+    display: flex;
+    justify-content: space-between;
+    background-color: rgb(80, 141, 136);
+}
+
+
+.button{
+    width: 78px;
+    background-color: #fff;
+    font-size: 14px;
+}
+
+.indicator{
+    &__wrapper{
+        position: absolute;
+        right: 5px;
+        top: 0;
+
+        
+    }
+    &__image{
+        width: 40px;
+        height: 40px;
+        background: url("./img/loader.svg");
+    }
+}
+
+.row{
+    width: 150px;
+    height: 150px;
+}
+.row img{
+    object-fit: cover;
+        width: 100%;
+        height: 100%;
+}
