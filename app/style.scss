@@ -43,14 +43,11 @@
     font-size: 14px;
 }
 
-.indicator{
-    &__wrapper{
-        position: absolute;
-        right: 5px;
-        top: 0;
+.loading{
+    position: absolute;
+    right: 5px;
+    top: 0;
 
-        
-    }
     &__image{
         width: 40px;
         height: 40px;

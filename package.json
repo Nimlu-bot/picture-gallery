@@ -4,9 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon src/index.js",
+    "start": "nodemon ./serv/index.js",
     "dev": "webpack serve",
-    "build": "webpack"
+    "build": "webpack",
+    "watching": "webpack --watch",
+    "all": "concurrently \"webpack --watch\" \"npm start\""
   },
   "repository": {
     "type": "git",
@@ -26,9 +28,11 @@
     "handlebars": "^4.7.7",
     "handlebars-loader": "^1.7.1",
     "jquery": "^3.6.0",
-    "underscore": "^1.13.2"
+    "underscore": "^1.13.2",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
+    "concurrently": "^7.0.0",
     "copy-webpack-plugin": "^10.2.4",
     "css-loader": "^6.7.1",
     "handlebars-webpack-plugin": "^2.2.1",
