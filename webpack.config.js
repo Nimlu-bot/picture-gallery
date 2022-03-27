@@ -1,6 +1,5 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 const PUBLIC_PATH = path.join(__dirname, "public");
 const SRC_PATH = path.join(__dirname, "app");
@@ -12,19 +11,11 @@ const webpackConfig = {
       template: path.resolve(__dirname, "./app/index.html"),
       filename: "index.html",
     }),
-    new CopyWebpackPlugin({
-      patterns: [
-        {
-          from: "./app/img",
-          to: "./img",
-        },
-      ],
-    }),
   ],
 
-  entry: `${SRC_PATH}/index.js`,
+  entry: { bundle: `${SRC_PATH}/index.js` },
   output: {
-    filename: "bundle.js",
+    filename: `[name].js`,
     path: PUBLIC_PATH,
   },
   module: {

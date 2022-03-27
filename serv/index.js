@@ -17,6 +17,15 @@ app.get("/pictures", function (req, res) {
   res.send(items);
 });
 
+app.post("/pictures", function (req, res) {
+  const items = dataBase.replaceItems(req.body);
+  res.send(items);
+});
+
+app.delete("/pictures", function (req, res) {
+  res.sendStatus(204);
+});
+
 app.post("/pictures/:id", function (req, res) {
   const item = dataBase.addItem(req.body);
   res.send(item);
