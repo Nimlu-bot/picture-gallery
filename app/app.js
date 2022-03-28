@@ -8,7 +8,7 @@ const App = {
   PicturesView: {},
   PictureView: {},
   MenuView: {},
-  loadingView: {},
+  LoadingView: {},
 };
 
 module.exports = App;

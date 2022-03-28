@@ -1,24 +1,19 @@
 const Backbone = require("backbone");
 const _ = require("underscore");
 
-const buttonTemplate = require("./button.hbs");
+const menuTemplate = require("./menu.hbs");
 const App = require("../app");
 const { v4: uuid } = require("uuid");
 
-const buttonView = {
-  template: buttonTemplate,
-  $container: null,
-  initialize: function (options) {
+const menuView = {
+  template: menuTemplate,
+  el: Backbone.$(".menu"),
+  initialize: function () {
     _.bindAll(this, "render");
-    this.$container = options.$container;
-    this.insert();
   },
   render: function () {
-    this.$el.html(this.template(this.model.toJSON()));
+    this.$el.html(this.template({ items: App.Menu.toJSON() }));
     return this;
-  },
-  insert: function () {
-    this.$container.append(this.$el);
   },
   events: function () {
     return {
@@ -38,14 +33,13 @@ const buttonView = {
         { src: e.target.result, picture: image.name, _id: id },
         { merge: true }
       );
-      if (id) {
-        App.CurrentPicture = _.clone(
-          App.Pictures.findWhere({
-            _id: id,
-          })
-        );
-        App.PictureView.render();
-      }
+
+      App.CurrentPicture = _.clone(
+        App.Pictures.findWhere({
+          _id: id,
+        })
+      );
+      App.PictureView.render();
     });
     FR.readAsDataURL(image);
   },
@@ -67,4 +61,4 @@ const buttonView = {
   },
 };
 
-module.exports = Backbone.View.extend(buttonView);
+module.exports = Backbone.View.extend(menuView);

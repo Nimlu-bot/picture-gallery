@@ -8,7 +8,7 @@
     "dev": "webpack serve",
     "build": "webpack",
     "watching": "webpack --watch",
-    "all": "concurrently \"webpack --watch\" \"npm start\""
+    "start-all": "concurrently \"webpack --watch\" \"npm start\""
   },
   "repository": {
     "type": "git",

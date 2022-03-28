@@ -8,8 +8,8 @@ const currentPictureModel = require("./models/current-picture.model");
 const buttonModel = require("./models/button.model");
 const picturesView = require("./views/pictures.view");
 const pictureView = require("./views/picture.view");
-const buttonView = require("./views/button.view");
 const loadingView = require("./views/loading.view");
+const menuView = require("./views/menu.view");
 
 function listClickHandler() {
   Backbone.$(".image-wrapper").show();
@@ -22,6 +22,7 @@ function imageClickHandler() {
 let isClickAttached = false;
 const originalSync = Backbone.sync;
 const titles = ["create", "read", "update", "delete"];
+
 const helpers = {
   customSync: function (method, model, options) {
     switch (method) {
@@ -60,6 +61,7 @@ const helpers = {
       }
     });
   },
+
   setHandlers: function () {
     if (Backbone.$(window).width() < 600) {
       if (isClickAttached) return;
@@ -76,6 +78,7 @@ const helpers = {
       Backbone.$(".image-wrapper").show();
     }
   },
+
   addCollectionListeners: function () {
     App.Pictures.on({
       add: function (model) {
@@ -92,14 +95,15 @@ const helpers = {
       },
     });
   },
+
   addOnlineListeners: function () {
     const loader = document.querySelector(".loading__image");
     const customSync = this.customSync;
-    window.addEventListener("offline", function (e) {
+    window.addEventListener("offline", function () {
       Backbone.sync = customSync;
     });
 
-    window.addEventListener("online", async function (e) {
+    window.addEventListener("online", async function () {
       Backbone.sync = originalSync;
       const count = await App.db.pictures.count();
 
@@ -114,24 +118,22 @@ const helpers = {
         await App.db.pictures.clear();
       }
       App.Pictures.fetch();
-
       Backbone.$(loader).css("opacity", 0);
     });
   },
-  createButtons: function () {
-    new Array(4).fill(null).forEach((element, index) => {
-      const button = new App.Models.Button({
-        title: titles[index],
-        id: index,
-      });
-      new App.Views.Button({
-        model: button,
-        $container: Backbone.$(".menu"),
-      }).render();
-    });
-  },
+
   createCollectionsModelsAndViews: function () {
+    const buttons = titles.map(
+      (title, index) =>
+        new App.Models.Button({
+          title,
+          id: index,
+        })
+    );
+    App.Menu = new App.Collections.Menu(buttons);
+
     App.Pictures = new App.Collections.Pictures();
+
     App.CurrentPicture = new App.Models.CurrentPicture();
 
     App.PicturesView = new App.Views.Pictures();
@@ -140,9 +142,13 @@ const helpers = {
     App.PictureView = new App.Views.Picture();
     App.PictureView.render();
 
-    App.loadingView = new App.Views.Loading();
-    App.loadingView.render();
+    App.LoadingView = new App.Views.Loading();
+    App.LoadingView.render();
+
+    App.MenuView = new App.Views.Menu();
+    App.MenuView.render();
   },
+
   createConstructors: function () {
     App.Models.Picture = pictureModel;
     App.Models.CurrentPicture = currentPictureModel;
@@ -158,8 +164,8 @@ const helpers = {
 
     App.Views.Pictures = picturesView;
     App.Views.Picture = pictureView;
-    App.Views.Button = buttonView;
     App.Views.Loading = loadingView;
+    App.Views.Menu = menuView;
   },
 };
 

@@ -15,7 +15,6 @@ Backbone.$(function () {
   App.db.open();
 
   helpers.createCollectionsModelsAndViews();
-  helpers.createButtons();
   helpers.addCollectionListeners();
   helpers.addOnlineListeners();
   helpers.setHandlers();
